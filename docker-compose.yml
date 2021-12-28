@@ -1,0 +1,64 @@
+version: "3.8"
+
+services:
+    mongo1:
+        image: mongo
+        container_name: mongo1
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=root
+            - MONGO_INITDB_ROOT_PASSWORD=pass12345
+        volumes:
+            - ./data_distributor/m1:/data/db
+        # networks:
+        #     - mongodb_network
+        ports:
+            - 27017:27017
+        # healthcheck:
+        #     test: echo 'db.runCommand("ping").ok' | mongo 10.10.10.60:27017/test --quiet
+        #     interval: 30s
+        #     timeout: 10s
+        #     retries: 3
+        #     restart: unless-stopped
+
+    distributor:
+        build: ./data_distributor
+        ports:
+            - 8000:8000
+    #
+    # mongo2:
+    #     image: mongo
+    #     container_name: mongo2
+    #     environment:
+    #         - MONGO_INITDB_ROOT_USERNAME=root
+    #         - MONGO_INITDB_ROOT_PASSWORD=pass12345
+    #     volumes:
+    #         - ./data_distributor/m2:/data/db
+    #     # networks:
+    #     #     - mongodb_network
+    #     ports:
+    #         - 27017:27017
+    #     healthcheck:
+    #         test: echo 'db.runCommand("ping").ok' | mongo 10.10.10.60:27017/test --quiet
+    #         interval: 30s
+    #         timeout: 10s
+    #         retries: 3
+    #         restart: unless-stopped
+
+    # mongo3:
+    #     image: mongo
+    #     container_name: mongo3
+    #     environment:
+    #         - MONGO_INITDB_ROOT_USERNAME=root
+    #         - MONGO_INITDB_ROOT_PASSWORD=pass12345
+    #     volumes:
+    #         - ./data_distributor/m3:/data/db
+    #     # networks:
+    #     #     - mongodb_network
+    #     ports:
+    #         - 27017:27017
+    #     healthcheck:
+    #         test: echo 'db.runCommand("ping").ok' | mongo 10.10.10.60:27017/test --quiet
+    #         interval: 30s
+    #         timeout: 10s
+    #         retries: 3
+    #         restart: unless-stopped
