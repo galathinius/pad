@@ -65,6 +65,14 @@ def get_data(uid):
     return data
 
 
+def combine_chunks(chunks):
+    chunk_list = [None] * len(chunks)
+    for chunk in chunks:
+        chunk_list[chunk.chunk_idx] = chunk.chunk
+    the_text = ''.join(chunk_list)
+    return the_text
+
+
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
@@ -73,7 +81,9 @@ def read_root():
 @app.get("/items/{item_id}")
 async def read_item(item_id: str):
     items = get_data(item_id)
-    return items
+    text = combine_chunks(items)
+    # items.append(text)
+    return Text(text=text)
 
 
 @app.post("/items/")
