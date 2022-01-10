@@ -1,12 +1,21 @@
 version: "3.8"
 
 services:
+    distributor:
+        build: ./data_distributor
+        ports:
+            - 8000:8000
+    counter:
+        build: ./wcount
+        ports:
+            - 3000:3000
     mongo1:
         image: mongo
         container_name: mongo1
         environment:
             - MONGO_INITDB_ROOT_USERNAME=root
             - MONGO_INITDB_ROOT_PASSWORD=pass12345
+        command: mongod --quiet --logpath /dev/null
         # volumes:
         #     - ./data_distributor/m1:/data/db
         # networks:
@@ -20,10 +29,6 @@ services:
         #     retries: 3
         #     restart: unless-stopped
         #
-    distributor:
-        build: ./data_distributor
-        ports:
-            - 8000:8000
     #
     mongo2:
         image: mongo
@@ -31,6 +36,7 @@ services:
         environment:
             - MONGO_INITDB_ROOT_USERNAME=root
             - MONGO_INITDB_ROOT_PASSWORD=pass12345
+        command: mongod --quiet --logpath /dev/null
     #     volumes:
     #         - ./data_distributor/m2:/data/db
     #     # networks:
@@ -50,6 +56,7 @@ services:
         environment:
             - MONGO_INITDB_ROOT_USERNAME=root
             - MONGO_INITDB_ROOT_PASSWORD=pass12345
+        command: mongod --quiet --logpath /dev/null
     #     volumes:
     #         - ./data_distributor/m3:/data/db
     #     # networks:
@@ -62,3 +69,6 @@ services:
     #         timeout: 10s
     #         retries: 3
     #         restart: unless-stopped
+
+    # docker-compose build 
+    # docker-compose up 
