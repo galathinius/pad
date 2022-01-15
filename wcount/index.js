@@ -40,6 +40,7 @@ let get_text = (id) => {
 
 app.get("/api/count/:id", (request, response) => {
   const id = String(request.params.id);
+  console.log("got req for " + id);
   get_text(id).then((text) => {
     let count = text.trim().split(/\s+/).length;
     let to_send = {

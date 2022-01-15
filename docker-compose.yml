@@ -1,14 +1,26 @@
 version: "3.8"
 
 services:
+    # cache:
+    #     image: redis
+    #     ports:
+    #         - 6379:6379
     distributor:
         build: ./data_distributor
         ports:
             - 8000:8000
-    counter:
+    counter1:
         build: ./wcount
         ports:
-            - 3000:3000
+            - 3001:3000
+    counter2:
+        build: ./wcount
+        ports:
+            - 3002:3000
+    counter3:
+        build: ./wcount
+        ports:
+            - 3003:3000
 
     gateway: 
         image: nginx
